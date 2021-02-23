@@ -4,7 +4,6 @@
 #include <mpi.h>
 
 int main(int argc, char *argv[])
-
 {
   int mpi_err; // error code
 
@@ -18,10 +17,10 @@ int main(int argc, char *argv[])
   int nb_process;
   mpi_err = MPI_Comm_size(MPI_COMM_WORLD, &nb_process);
 
-  int pid;
-  mpi_err = MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+  int rank;
+  mpi_err = MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  std::cout << "hello from process " << pid << std::endl;
+  std::cout << "hello from process " << rank << std::endl;
 
   //  Get a group identifier for MPI_COMM_WORLD.
   MPI_Group world_group_id;
@@ -56,7 +55,7 @@ int main(int argc, char *argv[])
   MPI_Comm_create(MPI_COMM_WORLD, odd_group_id, &odd_comm_id);
 
   // retrieve the id of each process
-  if (pid % 2 == 0) {
+  if (rank % 2 == 0) {
     mpi_err = MPI_Comm_rank(even_comm_id, &even_id);
     odd_id = -1;
   } else {
@@ -66,7 +65,7 @@ int main(int argc, char *argv[])
 
   // reduce: sum the ids of all even processess
   if (even_id != -1) {
-    MPI_Reduce(&pid, &even_id_sum, 1, MPI_INT, MPI_SUM, 0, even_comm_id);
+    MPI_Reduce(&rank, &even_id_sum, 1, MPI_INT, MPI_SUM, 0, even_comm_id);
   }
   if (even_id == 0) {
     std::cout << "Number of processes in even: " << nb_even << std::endl;
@@ -75,7 +74,7 @@ int main(int argc, char *argv[])
 
   // reduce: sum the ids of all odd processess
   if (odd_id != -1) {
-    MPI_Reduce(&pid, &odd_id_sum, 1, MPI_INT, MPI_SUM, 0, odd_comm_id);
+    MPI_Reduce(&rank, &odd_id_sum, 1, MPI_INT, MPI_SUM, 0, odd_comm_id);
   }
   if (odd_id == 0) {
     std::cout << "Number of processes in odd: " << nb_odd << std::endl;
@@ -83,5 +82,5 @@ int main(int argc, char *argv[])
   }
 
   mpi_err = MPI_Finalize();
-  return 0;
+  return EXIT_SUCCESS;
 }
