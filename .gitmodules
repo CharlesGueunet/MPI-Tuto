@@ -1,0 +1,3 @@
+[submodule "exo/mpitutorial"]
+	path = exo/mpitutorial
+	url = git@github.com:mpitutorial/mpitutorial.git
