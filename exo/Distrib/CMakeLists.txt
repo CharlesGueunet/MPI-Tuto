@@ -12,6 +12,3 @@ find_package(MPI REQUIRED)
 
 add_executable(host host.cpp)
 target_link_libraries(host PRIVATE MPI::MPI_CXX)
-
-add_executable(serve serve.cpp)
-target_link_libraries(serve PRIVATE MPI::MPI_CXX)

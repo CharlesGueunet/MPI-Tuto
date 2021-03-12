@@ -21,6 +21,13 @@ int main(int argc, char *argv[]) {
   int rank;
   mpi_err = MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
+  // Get the name of the processor
+  char processor_name[MPI_MAX_PROCESSOR_NAME];
+  int name_len;
+  MPI_Get_processor_name(processor_name, &name_len);
+
+  std::cout << "rank: " << rank << " host: " << processor_name << std::endl;
+
   //  Process 0 expects up to 200 real values, from any source.
   const int tag = 1;
   if (rank == 0) {
