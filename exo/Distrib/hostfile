@@ -1,2 +1,4 @@
-# the other machine
+# cp and build in /tmp/Distrib/ on both nodes
+# mpirun --hostfile hostfile -np 2 ./build/...
+127.0.0.1 slots=1
 10.33.0.73
