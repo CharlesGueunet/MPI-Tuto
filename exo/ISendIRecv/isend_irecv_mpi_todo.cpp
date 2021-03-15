@@ -26,15 +26,13 @@ int main(int argc, char *argv[]) {
   //  Process 0 expects up to 200 real values, from any source.
   if (rank == 0) {
     MPI_Request request;
-    mpi_err = MPI_Irecv(recieve, 200, MPI_FLOAT, MPI_ANY_SOURCE, tag,
-                        MPI_COMM_WORLD, &request);
+    // TODO call MPI_Irecv here 
 
     // [processing ... ]
     std::cout << "recieveing ... " << std::endl;
 
     MPI_Status status;
-    MPI_Wait(&request, &status);
-    // now we are sure the Irecv is done
+    // TODO call a MPI_Wait here
 
     int count;
     mpi_err = MPI_Get_count(&status, MPI_FLOAT, &count);
@@ -54,14 +52,13 @@ int main(int argc, char *argv[]) {
     // mpi_err = MPI_Send(send, 100, MPI_FLOAT, dest, tag, MPI_COMM_WORLD);
 
     MPI_Request request;
-    mpi_err = MPI_Isend(send, 100, MPI_FLOAT, dest, tag, MPI_COMM_WORLD, &request);
+    // TODO: call the MPI_Isend here
 
     // [processing ... ]
     std::cout << "sending ... " << std::endl;
 
     MPI_Status status;
-    MPI_Wait(&request, &status);
-    // now we are sure the Isend is done
+    // TODO Call a MPI_Wait here (optional)
   } else {
     //  idle
   }

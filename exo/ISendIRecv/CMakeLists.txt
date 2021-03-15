@@ -12,3 +12,6 @@ find_package(MPI REQUIRED)
 
 add_executable(isend_irecv isend_irecv_mpi.cpp)
 target_link_libraries(isend_irecv PRIVATE MPI::MPI_CXX)
+
+add_executable(isend_irecv_todo isend_irecv_mpi_todo.cpp)
+target_link_libraries(isend_irecv_todo PRIVATE MPI::MPI_CXX)

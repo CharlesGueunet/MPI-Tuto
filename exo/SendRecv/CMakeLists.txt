@@ -12,3 +12,6 @@ find_package(MPI REQUIRED)
 
 add_executable(send_recv send_recv_mpi.cpp)
 target_link_libraries(send_recv PRIVATE MPI::MPI_CXX)
+
+add_executable(send_recv_todo send_recv_mpi_todo.cpp)
+target_link_libraries(send_recv_todo PRIVATE MPI::MPI_CXX)

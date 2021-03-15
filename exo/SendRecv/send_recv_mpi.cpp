@@ -8,9 +8,6 @@ int main(int argc, char *argv[]) {
 
   int mpi_err;
 
-  float send[100];
-  float recieve[200];
-
   mpi_err = MPI_Init(&argc, &argv);
 
   if (mpi_err != 0) {
@@ -24,6 +21,8 @@ int main(int argc, char *argv[]) {
   //  Process 0 expects up to 200 real values, from any source.
   const int tag = 1;
   if (rank == 0) {
+    float recieve[200];
+
     MPI_Status status;
     mpi_err = MPI_Recv(recieve, 200, MPI_FLOAT, MPI_ANY_SOURCE, tag,
                        MPI_COMM_WORLD, &status);
@@ -39,6 +38,7 @@ int main(int argc, char *argv[]) {
   }
   //  Process 1 sends 100 real values to process 0.
   else if (rank == 1) {
+    float send[100];
     std::iota(send, send + 100, 0);
     const int dest = 0;
     mpi_err = MPI_Send(send, 100, MPI_FLOAT, dest, tag, MPI_COMM_WORLD);
